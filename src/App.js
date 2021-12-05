@@ -7,7 +7,6 @@ import './styles/App.css';
 function App() {
   return (
     <div>
-      <h1>Set App</h1>
       <Posts />
     </div>
   );
