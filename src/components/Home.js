@@ -1,6 +1,6 @@
 import { useWeb3React } from '@web3-react/core';
+import '../styles/Button.css';
 import { injected } from './wallet/connector';
-
 /**
  * UseWeb3React Hook values:
  *  - active: is a wallet actively connected right now?
@@ -31,9 +31,11 @@ export default function Home() {
     }
   }
   return (
-    <div>
+    <div className='metamask-info'>
       <button onClick={connect} className='btn-connect'>Connect to MetaMask</button>
-      {active ? <span>Connected with <b>{account}</b></span> : <span>Not Connected</span>}
+      
+        {active ? <span className='wallet'>Connected Account: <b>{account}</b></span> : <span>Not Connected</span>}
+      
       <button onClick={disconnect} className='btn-disconnect'>Disconnect</button>
     </div>
   );

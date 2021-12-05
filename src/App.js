@@ -1,8 +1,8 @@
 import { Web3ReactProvider } from '@web3-react/core';
 import Web3 from 'web3';
 import Home from './components/Home';
+import Posts from './components/Posts';
 import './styles/App.css';
-
 /**
  * Web3 Provider function 
  * Detects whether the user is using MetaMask 
@@ -19,8 +19,9 @@ function getLibrary(provider) {
 function App() {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      {/* <Posts /> */}
       <Home />
+      <Posts />
+      
     </Web3ReactProvider>
   );
 }

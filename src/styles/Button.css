@@ -1,0 +1,70 @@
+.btn-connect {
+  display: inline-block;
+  padding:0.46em 1.6em;
+  border: 0.1em solid #4801ff;
+  margin: 0 0.2em 0.2em 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-weight: 300;
+  color: #f7eaea;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0, 0.35);
+  background-color: blueviolet;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+.btn-connect:hover{
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  transition: all 0.3s ease-out;
+  color: aquamarine;
+  border-color: aquamarine;
+  background-color: #4801ff;
+}
+@media all and (max-width:30em){
+  .btn-connect{
+   display:block;
+   margin:0.4em auto;
+  }
+}
+
+.btn-disconnect {
+  display: inline-block;
+  padding:0.46em 1.6em;
+  border: 0.1em solid blueviolet;
+  margin: 0 0.2em 0.2em 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-weight: 300;
+  color: #f7eaea;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0, 0.35);
+  background-color: #4801ff;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+.btn-disconnect:hover{
+  text-shadow: 0 0 2em rgba(255,255,255,1);
+  transition: all 0.3s ease-out;
+  color: aquamarine;
+  border-color: aqua;
+  background-color: blueviolet;
+}
+@media all and (max-width:30em){
+  .btn-disconnect{
+   display:block;
+   margin:0.4em auto;
+  }
+}
+
+.metamask-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet {
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+
