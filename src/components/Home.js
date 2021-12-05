@@ -34,7 +34,7 @@ export default function Home() {
     <div className='metamask-info'>
       <button onClick={connect} className='btn-connect'>Connect to MetaMask</button>
       
-        {active ? <span className='wallet'>Connected Account: <b>{account}</b></span> : <span>Not Connected</span>}
+        {active ? <span className='connect'>Connected Account: <b>{account}</b></span> : <span className='nocconnect'>No Connection</span>}
       
       <button onClick={disconnect} className='btn-disconnect'>Disconnect</button>
     </div>

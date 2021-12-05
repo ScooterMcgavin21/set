@@ -25,7 +25,6 @@ function Posts() {
         console.log('An error occured', error);
         tokenData = [];
       }
-      
       // set state data
       setTokens(tokenData);
     })();
