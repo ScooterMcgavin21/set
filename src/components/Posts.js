@@ -19,10 +19,8 @@ function Posts() {
       try {
         const response = await fetch(ENDPOINT);
         console.log(response);
-        
         // console.log(response.portfolios[0]);
         tokenData = (await response.json()).portfolios;
-        console.log(response.portfolios)
       } catch (error) {
         console.log('An error occured', error);
         tokenData = [];
@@ -37,10 +35,8 @@ function Posts() {
     <div className="container">
       <div className='cards-container'>
         {tokens.map(( token, index ) => (
-          
-          <Token tokenData={token} key={index} />
+          <Token tokenData={token} position={index} key={index} />
         ))}
-        console.log(index)
       </div>
     </div>
   );
