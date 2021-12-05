@@ -1,0 +1,16 @@
+.card {
+  margin: 2rem 2rem 2rem 2rem;
+  padding: 1.5rem;
+  width: 350px;
+  box-shadow: 0 0 28px 4px rgba(0,0,0, 0.1);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card-name {
+  font-weight: 800;
+  font-size: 1.5rem;
+}
