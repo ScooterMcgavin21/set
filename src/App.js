@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Web3 from "web3";
 import Home from "./components/Home/Home";
 import Posts from "./components/Posts/Posts";
@@ -13,7 +13,9 @@ function App() {
 
   const [isConnected, setIsConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
-  const [balance, setBalance] = useState(0);
+  const [provider, setProvider] = useState(window.ethereum);
+  const [chainId, setChainId] = useState(null);
+  const [web3, setWeb3] = useState(null);
 
   /**
    * provider passed from wallet to set account 
@@ -22,19 +24,49 @@ function App() {
   const onLogin = async (provider) => {
     const web3 = new Web3(provider);
     const accounts = await web3.eth.getAccounts();
+    const chainId = await web3.eth.getChainId();
     if (accounts.length === 0) {
       console.log("Please connect to MetaMask!");
     } else if (accounts[0] !== currentAccount) {
+      setProvider(provider);
+      setWeb3(web3);
+      setChainId(chainId);
       setCurrentAccount(accounts[0]);
-      const accBalanceEth = web3.utils.fromWei(
-        await web3.eth.getBalance(accounts[0]),
-        "ether"
-      );
-
-      //setBalance(Number(accBalanceEth).toFixed(6));
       setIsConnected(true);
     }
   };
+
+  // only want hook to trigger when isConnected state changes
+  // account change event and chain change event
+  useEffect(() => {
+    const handleAccountsChanged = async (accounts) => {
+      const web3Accounts = await web3.eth.getAccounts();
+      if (accounts.length === 0) {
+        onLogout();
+      } else if (accounts[0] !== currentAccount) {
+        setCurrentAccount(accounts[0]);
+      }
+    };
+
+    // handle case when you change network
+    const handleChainChanged = async (chainId) => {
+      const web3ChainId = await web3.eth.getChainId();
+      setChainId(web3ChainId);
+    };
+    if(isConnected) {
+      provider.on('accountsChanged', handleAccountsChanged);
+      provider.on('chainChanged', handleChainChanged);
+    }
+
+    return () => {
+      if (isConnected){
+        provider.removeListener('accountsChanged', handleAccountsChanged);
+        provider.removeListener('chainChanged', handleChainChanged);
+      }
+    };
+
+  }, [isConnected]);
+  
 
   const onLogout = () => {
     setIsConnected(false);
@@ -55,7 +87,7 @@ function App() {
       <main>
         {!isConnected && <Wallet onLogin={onLogin} onLogout={onLogout} />}
         {isConnected && (
-          <Home currentAccount={currentAccount} balance={balance} />
+          <Home currentAccount={currentAccount} currentNetwork={chainId} />
         )}
       </main>
       <Posts />

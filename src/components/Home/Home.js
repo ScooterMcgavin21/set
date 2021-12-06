@@ -9,7 +9,7 @@ const Home = (props) => {
     <Card className={classes.home}>
       <h1>Address</h1>
       <p>{props.currentAccount}</p>
-      <p>{props.balance} ETH</p>
+      <p>Current Network: {props.currentNetwork}</p>
     </Card>
   );
 };
