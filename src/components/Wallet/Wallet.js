@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../UI/Card/Card";
 import classes from "./Wallet.modules.css";
 
@@ -10,6 +10,24 @@ import classes from "./Wallet.modules.css";
 const Wallet = (props) => {
   // checking if user is cconnected 
   const [isConnecting, setIsConnecting] = useState(false);
+  const [provider, setProvider] = useState(window.ethereum);
+  const [isMetaInstall, setIsMetaInstall] = useState(false);
+
+  useEffect(() => {
+    setProvider(detectProvider());
+  }, [])
+
+  // runs each time the providers updated
+  useEffect(() => {
+    if (provider) {
+      if (provider !== window.ethereum) {
+        console.error(
+          "Not window.ethereum provider."
+        );
+      }
+      setIsMetaInstall(true);
+    }
+  }, [provider])
   // This function detects most providers injected at window.ethereum
   // check if library injected is ethereum
   const detectProvider = () => {
@@ -19,7 +37,7 @@ const Wallet = (props) => {
     } else if (window.web3) {
       provider = window.web3.currentProvider;
     } else {
-      window.alert("No Ethereum browser detected! Check out MetaMask");
+      console.warn("No Ethereum browser detected! Check out MetaMask");
     }
     return provider;
   };
@@ -28,30 +46,33 @@ const Wallet = (props) => {
    * handler function to detect the provider and 
    * pass to into login parent to fetch requests from metamask
    */
-  const onLoginHandler = async () => {
-    const provider = detectProvider();
-    if (provider) {
-      if (provider !== window.ethereum) {
-        console.error(
-          "Not window.ethereum provider."
-        );
-      }
+  const onLoginHandler = async () => {    
       setIsConnecting(true);
       await provider.request({
         method: "eth_requestAccounts",
       });
       setIsConnecting(false);
-    }
-    props.onLogin(provider);
+      props.onLogin(provider);
   };
 
   // returns the home data containing address and amount 
   return (
     <Card className={classes.login}>
-      <button onClick={onLoginHandler} className={classes.button} type="button">
-        {!isConnecting && "Connect"}
-        {isConnecting && "Loading..."}
+      {isMetaInstall && (
+        <button 
+          onClick={onLoginHandler} 
+          className={classes.button} 
+          type='button'
+        >
+        {!isConnecting && 'Connect'}
+        {isConnecting && 'Loading...'}
       </button>
+      )}
+      {!isMetaInstall && (
+        <p>
+          <a href='/'>Install MetaMask</a>
+        </p>
+      )}
     </Card>
   );
 };
