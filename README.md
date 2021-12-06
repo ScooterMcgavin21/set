@@ -1,29 +1,31 @@
 
-The project is bootstrapped with [`create-react-app`](https://github.com/facebook/create-react-app) and utilizes [set.js](https://github.com/SetProtocol/set.js) to fetch and display a list of Sets.
+# Set
+The project is bootstrapped with [`create-react-app`](https://github.com/facebook/create-react-app) and utilizes [set.js](https://github.com/SetProtocol/set.js) to fetch and display a list of Token Sets.
 
-[`web3-react`](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) library is used to access web3 data through React Context 
+The appplication utilizes [Web3](https://web3.foundation/) and [MetaMask](https://metamask.io/) to interact with the Ethereum blockchain. MetaMask injects a global API through the <b>window.ethereum</b> Provider in order to handle asynchronous events.
 
-## Getting Started
 
-First, run the local server:
+**What does it do?**
+<li> Connects to MetaMask or provides a link to download it
+<li> Detects the Ethereum provider
+<li> Prints the ethereum address 
+<li> Displays the Chain ID of the Ethereum network the client is currently connected to
+</li>
 
-```bash
-npm start
+#
+
+Dependencies
+```
+> git clone 
+> npm install
+> npm install --save @alch/alchemy-web3
+> npm install web3
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-Dependencies:
-```
-npm install @alch/alchemy-web3
-npm install @web3-react/injected-connector
-npm install @web3-react/core
-npm install @metamask/detect-provider
-npm install web3
-```
+#
 
 Run
 ```
-node.js
+npm start
 ```
-
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

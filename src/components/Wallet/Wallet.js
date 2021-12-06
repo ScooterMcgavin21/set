@@ -49,7 +49,7 @@ const Wallet = (props) => {
   const onLoginHandler = async () => {    
       setIsConnecting(true);
       await provider.request({
-        method: "eth_requestAccounts",
+        method: 'eth_requestAccounts',
       });
       setIsConnecting(false);
       props.onLogin(provider);

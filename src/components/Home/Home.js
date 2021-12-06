@@ -7,7 +7,7 @@ import classes from "./Home.css";
 const Home = (props) => {
   return (
     <Card className={classes.home}>
-      <h1>Address</h1>
+      <h1>Fix this element!</h1>
       <p>{props.currentAccount}</p>
       <p>Current Network: {props.currentNetwork}</p>
     </Card>
