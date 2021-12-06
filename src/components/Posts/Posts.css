@@ -1,11 +1,9 @@
 .container {
   padding: 4rem;
   display: grid;
-  
   justify-content: center;
   
 }
-
 
 .cards-container {
   display: grid;

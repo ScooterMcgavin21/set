@@ -1,4 +1,4 @@
-.card {
+.cards {
   padding: 1rem;
   width: 350px;
   box-shadow: 0 0 28px 4px rgba(0,0,0, 0.1);
@@ -14,16 +14,16 @@
   );
 }
 @media (min-width: 300px) {
-  .card { grid-template-columns: repeat(1, 1fr); }
+  .cards { grid-template-columns: repeat(1, 1fr); }
 }
 @media (min-width: 600px) {
-  .card { grid-template-columns: repeat(2, 1fr); }
+  .cards { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 900px) {
-  .card { grid-template-columns: repeat(3, 1fr); }
+  .cards { grid-template-columns: repeat(3, 1fr); }
 }
 
-.card:hover {
+.cards:hover {
   transform: scale(1.1);
 }
 

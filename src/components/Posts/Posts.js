@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import '../styles/Posts.css';
-import Token from "./Token";
+import Token from "../Token/Token";
+import './Posts.css';
 /**
  * Post function contains async logic to fetch tokensets API data
  * It then maps through the JSON data and renders the the Token Component 

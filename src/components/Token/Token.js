@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Token.css';
+import './Token.css';
 
 /** 
  * Token Component returns the required data:
@@ -7,7 +7,7 @@ import '../styles/Token.css';
  */
 const Token = ({tokenData, position}) => {
   return (
-    <div className='card'>
+    <div className='cards'>
       <div className="img-container">
         <sub>[{position}]</sub>
         <img className='card-img' alt=''
@@ -15,7 +15,6 @@ const Token = ({tokenData, position}) => {
           width='30'
           height='30'
         />
-        
       </div>
       {/* <sub>[{position}]</sub> */}
       <div className='card-name'>
