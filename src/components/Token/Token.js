@@ -1,5 +1,5 @@
 import React from 'react';
-import './Token.modules.css';
+import './Token.css';
 
 /** 
  * Token Component returns the required data:

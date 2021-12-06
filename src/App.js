@@ -17,6 +17,15 @@ function App() {
   const [chainId, setChainId] = useState(null);
   const [web3, setWeb3] = useState(null);
 
+  /** Maping Chain Ids */
+  const NETWORKS = {
+    1: 'Ethereum Main Network',
+    3: 'Ropsten Test Network',
+    4: 'Rinkeby Test Network',
+    5: 'goerli Test Network',
+    42: 'Kovan Test Network'
+  };
+
   /**
    * provider passed from wallet to set account 
    * Then passed down to the header and home component
@@ -26,7 +35,7 @@ function App() {
     const accounts = await web3.eth.getAccounts();
     const chainId = await web3.eth.getChainId();
     if (accounts.length === 0) {
-      console.log("Please connect to MetaMask!");
+      console.log('Please connect to MetaMask!');
     } else if (accounts[0] !== currentAccount) {
       setProvider(provider);
       setWeb3(web3);
@@ -49,6 +58,15 @@ function App() {
     };
 
     // handle case when you change network
+    /** Chain Id pf EVM networks:
+     * Decimal        hex   
+     * [1] - mainnet  [0x1]     
+     * [3] - ropsten  [0x3]
+     * [4] - rinkeby  [0x4]
+     * [5] - goerli   [0x5]
+     * [42] - kovan   [0x2a]
+     * 
+     */
     const handleChainChanged = async (chainId) => {
       const web3ChainId = await web3.eth.getChainId();
       setChainId(web3ChainId);
@@ -67,27 +85,41 @@ function App() {
 
   }, [isConnected]);
   
-
+  // when logged out, setstate to null to prevent the address displaying in the nav
   const onLogout = () => {
     setIsConnected(false);
+    setCurrentAccount(null);
   };
+
+  // return the obj value Of What current Ethereum node we're running on
+  const getNetwork = (chainId) => {
+    return NETWORKS[chainId];
+  }
 
   return (
     <div>
-      <header className="main-header">
+      <header className='main-header'>
         <h1>Set Protocol</h1>
         <nav className="nav">
           <ul>
             <li>
-              <a href="/">{currentAccount}</a>
+              <a href="/">[{currentAccount}] Running On: [{getNetwork(chainId)}]</a>
             </li>
           </ul>
         </nav>
       </header>
       <main>
-        {!isConnected && <Wallet onLogin={onLogin} onLogout={onLogout} />}
+        {!isConnected && 
+          <Wallet 
+            onLogin={onLogin} 
+            onLogout={onLogout} 
+          />
+        }
         {isConnected && (
-          <Home currentAccount={currentAccount} currentNetwork={chainId} />
+          <Home 
+            currentAccount={currentAccount} 
+            currentNetwork={getNetwork(chainId)} 
+          />
         )}
       </main>
       <Posts />

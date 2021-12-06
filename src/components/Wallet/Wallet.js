@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../UI/Card/Card";
-import classes from "./Wallet.modules.css";
+import classes from "./Wallet.css";
 
 /**
  * Wallet checks if library injected by metamask is window.eth

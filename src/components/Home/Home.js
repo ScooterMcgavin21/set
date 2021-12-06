@@ -1,5 +1,5 @@
 import Card from "../UI/Card/Card";
-import classes from "./Home.modules.css";
+import classes from "./Home.css";
 /**
  * Uppon sucessfully logging into metamask,
  * Component returns address and balance props and is rendered by App

@@ -1,4 +1,4 @@
-import classes from "./Card.modules.css";
+import classes from "./Card.css";
 
 /**
  * Component rendered by Wallet and App
