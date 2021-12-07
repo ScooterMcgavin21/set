@@ -97,13 +97,13 @@ function App() {
   }
 
   return (
-    <div className='login'>
+    <div>
       <header className='main-header'>
         <h1>Set Protocol</h1>
         <nav className="nav">
           <ul>
             <li>
-              <a href="/">[{currentAccount}] Running On: [{getNetwork(chainId)}]</a>
+              <a href="/">Running On: {getNetwork(chainId)}</a>
             </li>
           </ul>
         </nav>
