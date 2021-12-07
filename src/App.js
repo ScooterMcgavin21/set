@@ -3,6 +3,8 @@ import Web3 from "web3";
 import Home from "./components/Home/Home";
 import Posts from "./components/Posts/Posts";
 import Wallet from "./components/Wallet/Wallet";
+
+
 /**
  * App initalizes hooks and web3
  * Login button is shown when not connected,
@@ -10,6 +12,7 @@ import Wallet from "./components/Wallet/Wallet";
  * isconnected sets true and returns the users account address and balance
  */
 function App() {
+  
 
   const [isConnected, setIsConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
