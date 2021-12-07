@@ -97,7 +97,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='login'>
       <header className='main-header'>
         <h1>Set Protocol</h1>
         <nav className="nav">
