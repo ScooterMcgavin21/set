@@ -1,43 +1,38 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import Token from "../Token/Token";
-import './Posts.css';
+import Sets from '../UI/Sets/Sets';
+import classes from './Posts.module.css';
 /**
  * Post function contains async logic to fetch tokensets API data
  * It then maps through the JSON data and renders the the Token Component 
  */
-function Posts() {
-  /**
-   * initilizing token state to empty arrays
-   * useEffect hook with an async function inside to get invoked 
-   */
+function Posts(props) {
+  // state to store tokens in an empty array
   const [tokens, setTokens] = useState([]);
-  
+  // useEffect to call API during component mounting lifecycle
   useEffect(() => {
-    (async () => {
-      let tokenData;
-      const ENDPOINT = 'https://api.tokensets.com/public/v2/portfolios';
+    const ENDPOINT = 'https://api.tokensets.com/public/v2/portfolios';
+    // async function to fetch data and wait until function loadData(promis) is resolved
+    const loadData = async () => {
       try {
         const response = await fetch(ENDPOINT);
+        // transform response into JSON and store it in tokenData
+        const tokenData = await response.json();
         console.log(response);
-        // console.log(response.portfolios[0]);
-        tokenData = (await response.json()).portfolios;
+        setTokens([...tokenData.portfolios]);
       } catch (error) {
-        console.log('An error occured', error);
-        tokenData = [];
+        console.log('error', error);
       }
-      // set state data
-      setTokens(tokenData);
-    })();
+    };
+    loadData();
   }, []);
-
+  
   return (
-    <div className="container">
-      <div className='cards-container'>
-        {tokens.map(( token, index ) => (
-          <Token tokenData={token} position={index} key={index} />
-        ))}
-      </div>
-    </div>
+    <Sets className={classes.container}>
+      {tokens.map((token, index) => (
+        <Token tokenData={token} position={index} key={index} />
+      ))}
+    </Sets>   
   );
 }
 

@@ -1,9 +1,12 @@
+import React from 'react';
 import classes from "./Card.module.css";
 /**
- * Component rendered by Wallet and App
- * containing the button as its child
+ * Wrapping component so it renders all its children components
+ * passed through props {props.children} to see whats passed into the card component
+ * <Card className="home"> = same attribute as props.className
+ * Card style is completed by the home style in index.css to reuse anywhere in the app
  */
-const Card = (props) => {
+function Card(props) {
   return (
     <div className={`${classes.card} ${props.className}`}>
       {props.children}

@@ -1,16 +1,19 @@
-import Card from "../UI/Card/Card";
-import classes from "./Home.css";
+import React from 'react';
+import Card from '../UI/Card/Card';
+import classes from './Home.module.css';
 /**
- * Uppon sucessfully logging into metamask,
- * Component returns address and balance props and is rendered by App
+ * Uppon clicking 'Connect' btn and sucessfully logging into metamask,
+ * Renders Home reusable Card Component,
+ * Returns Wallet address and currentNetwork as props 
  */
-const Home = (props) => {
+function Home(props) {
   return (
     <Card className={classes.home}>
-      <h1>Current Wallet Address</h1>
+      <h1>Connected Address:</h1>
       <p>{props.currentAccount}</p>
       <p>Current Network: {props.currentNetwork}</p>
     </Card>
   );
-};
+}
+
 export default Home;

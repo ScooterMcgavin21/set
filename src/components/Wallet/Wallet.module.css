@@ -1,4 +1,4 @@
-.login {
+.wallet {
   width: 90%;
   max-width: 40rem;
   padding: 3rem;
@@ -36,3 +36,4 @@ button:active:disabled {
   color: #666666;
   cursor: not-allowed;
 }
+

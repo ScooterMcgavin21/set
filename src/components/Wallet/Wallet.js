@@ -1,35 +1,47 @@
-import { useEffect, useState } from "react";
-import Card from "../UI/Card/Card";
-import classes from "./Wallet.module.css";
+import React, { useEffect, useState } from 'react';
+import Card from '../UI/Card/Card';
+import classes from './Wallet.module.css';
 
 /**
- * Wallet checks if library injected by metamask is window.eth
- * Passing in the eth or web3 package is necessary to allow retrieving chainId, gasPrice and nonce automatically
- * login sends a request to metamask using the provider and responses by opening the login window and calls props onlogin
+ * Detect provider when page is loading to give feedback to user when needed
+ * ex: if no provider is detected, display a message to install metamask and connect btn is not avilable
  */
-const Wallet = (props) => {
-  // checking if user is cconnected 
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [provider, setProvider] = useState(window.ethereum);
-  const [isMetaInstall, setIsMetaInstall] = useState(false);
 
+/**
+ * Renders the reusable Card component which displays the btn component to connect to metamask
+ */
+function Wallet(props) {
+  // Create state to determine if trying to connect to display a loading message to the user when btn is clicked
+  const [isConnecting, setIsConnecting] = useState(false);
+  // iniatlzie state to the provider we expect, window.ethereum
+  const [provider, setProvider] = useState(window.ethereum);
+  // state to let user know if metamask is installed 
+  const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(false);
+
+  /**
+   * useEffect that runs only once [] which initalizes the provider from detectProvider function
+   */
   useEffect(() => {
     setProvider(detectProvider());
   }, [])
 
-  // runs each time the providers updated
+  /**
+   * 2nd useEffect function that runs each time the provider is updated
+   */
   useEffect(() => {
     if (provider) {
       if (provider !== window.ethereum) {
-        console.error(
-          "Not window.ethereum provider."
-        );
+        console.error('Not window.ethereum provider. You may have multiple wallets installed');
       }
-      setIsMetaInstall(true);
+      setIsMetaMaskInstalled(true);
     }
   }, [provider])
-  // This function detects most providers injected at window.ethereum
-  // check if library injected is ethereum
+  /**
+   * Detect Provider in login component which returns the provider to use in login handler method
+   * checks if library injected by metamask is window.eth
+   * else if checks window.web3 for compatibility reasons
+   * If nothing is detected, make an warning with a link to install metamask
+   */
   const detectProvider = () => {
     let provider;
     if (window.ethereum) {
@@ -37,44 +49,38 @@ const Wallet = (props) => {
     } else if (window.web3) {
       provider = window.web3.currentProvider;
     } else {
-      console.warn("No Ethereum browser detected! Check out MetaMask");
+      console.warn('No Ethereum browser detected, install via Metamask');
     }
     return provider;
   };
 
   /**
-   * handler function to detect the provider and 
-   * pass to into login parent to fetch requests from metamask
+   * onLoginHandler when clicking button component
+   * calls detectProvider and check if there is a provider and its window.ethereum if its not, display error msg
+   * sends a request to metamask using the provider and metamask will respond by opening login window
+   * pass provider from onLogin to parent component in app.js
    */
-  const onLoginHandler = async () => {    
-      setIsConnecting(true);
-      await provider.request({
-        method: 'eth_requestAccounts',
-      });
-      setIsConnecting(false);
-      props.onLogin(provider);
+  const onLoginHandler = async () => {
+    setIsConnecting(true);
+    await provider.request({
+      method: 'eth_requestAccounts'
+    });
+    setIsConnecting(false);
+    props.onLogin(provider);
   };
-
-  // returns the home data containing address and amount 
+  // if metamask is notinstalled, display a link to install 
   return (
-    <Card className={classes.login}>
-      {isMetaInstall && (
-        <button 
-          onClick={onLoginHandler} 
-          className={classes.button} 
-          type='button'
-        >
+    <Card className={classes.wallet}>
+      {isMetaMaskInstalled &&
+      <button onClick={onLoginHandler} className={classes.button} type='button'>
         {!isConnecting && 'Connect'}
         {isConnecting && 'Loading...'}
-      </button>
-      )}
-      {!isMetaInstall && (
-        <p>
-          <a href='/'>Install MetaMask</a>
-        </p>
-      )}
+      </button>}
+      {!isMetaMaskInstalled && <p>
+        <a href='/'>Install MetaMask</a>
+      </p>}
     </Card>
-  );
-};
+  )
+}
 
 export default Wallet;

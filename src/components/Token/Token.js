@@ -1,32 +1,28 @@
 import React from 'react';
-import './Token.css';
-
+import Sets from '../UI/Sets/Sets';
+import classes from './Token.module.css';
 /** 
- * Token Component returns the required data:
+ * Token Component contained in reusable sets container and returns the required data:
  * name, symbol, address and position on top
  */
-const Token = ({tokenData, position}) => {
+function Token({tokenData, position}) {
   return (
-    <div className='cards'>
-      <div className="img-container">
+    <Sets className={classes.token}>
+      <div className={classes.top}>
         <sub>[{position}]</sub>
-        <img className='card-img' alt=''
+        <h3>{tokenData.name}</h3>
+        <img alt=''
           src={tokenData.image}
           width='30'
           height='30'
         />
       </div>
-      {/* <sub>[{position}]</sub> */}
-      <div className='card-name'>
-        {tokenData.name} 
-      </div>
-      <div className='card-symbol'>
-        [{tokenData.symbol}] 
-      </div>
-      <div className='card-address'>
-        <u>Set Address:</u> {tokenData.address}
-      </div>
-    </div>
+      <h2 className={classes.symbol}>[{tokenData.symbol}]</h2>
+      <u>Set Address:</u>
+      <p className={classes.address}>
+        {tokenData.address}
+      </p>
+    </Sets>
   );
 }
 
