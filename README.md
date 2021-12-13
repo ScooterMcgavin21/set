@@ -29,3 +29,5 @@ Run
 npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+<a href="https://setlabs.herokuapp.com/">Deployed with Heroku</a>  
